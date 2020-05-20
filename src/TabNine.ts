@@ -3,7 +3,6 @@ import * as child_process from "child_process";
 import * as fs from "fs";
 import * as path from "path";
 import * as readline from "readline";
-import * as semver from "semver";
 
 export class TabNine {
 	private proc: child_process.ChildProcess;
@@ -163,8 +162,7 @@ export class TabNine {
 				`Sorry, the platform '${process.platform}' is not supported by TabNine.`
 			);
 		}
-		const versions = fs.readdirSync(root);
-		TabNine.sortBySemver(versions);
+		const versions = fs.readdirSync(root).reverse();
 		const tried = [];
 		for (let version of versions) {
 			const full_path = `${root}/${version}/${arch}-${suffix}`;
@@ -176,28 +174,6 @@ export class TabNine {
 		throw new Error(
 			`Couldn't find a TabNine binary (tried the following paths: versions=${versions} ${tried})`
 		);
-	}
-
-	private static sortBySemver(versions: string[]) {
-		versions.sort(TabNine.cmpSemver);
-	}
-
-	private static cmpSemver(a, b): number {
-		const a_valid = semver.valid(a);
-		const b_valid = semver.valid(b);
-		if (a_valid && b_valid) {
-			return semver.rcompare(a, b);
-		} else if (a_valid) {
-			return -1;
-		} else if (b_valid) {
-			return 1;
-		} else if (a < b) {
-			return -1;
-		} else if (a > b) {
-			return 1;
-		} else {
-			return 0;
-		}
 	}
 
 	static reportUninstall(): Promise<number> {
