@@ -1,44 +1,31 @@
 {
-	"name": "tabnine-vscode",
-	"version": "2.8.2",
-	"displayName": "TabNine",
-	"description": "All-language autocompleter — TabNine uses machine learning to help you write code faster.",
-	"icon": "small_logo.png",
-	"author": "Jacob Jackson",
-	"publisher": "TabNine",
+	"name": "tabnine-plus",
+	"displayName": "TabNine+",
+	"description": "TabNine client (all-language autocompleter) for the VS Code.",
+	"version": "1.0.0",
+	"publisher": "svipas",
+	"icon": "icon.png",
+	"main": "./dist/main.js",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/codota/tabnine-vscode"
+		"url": "https://github.com/svipas/vscode-tabnine-plus.git"
 	},
 	"bugs": {
-		"url": "https://github.com/codota/tabnine-vscode/issues"
+		"url": "https://github.com/svipas/vscode-tabnine-plus/issues"
 	},
 	"engines": {
-		"vscode": "^1.26.0"
+		"vscode": "^1.30.0"
 	},
+	"extensionKind": [
+		"workspace"
+	],
 	"categories": [
-		"Other"
+		"Other",
+		"Programming Languages"
 	],
 	"activationEvents": [
 		"*"
 	],
-	"main": "./out/extension",
-	"scripts": {
-		"vscode:prepublish": "tsc -p ./",
-		"compile": "tsc -watch -p ./",
-		"postinstall": "node ./node_modules/vscode/bin/install",
-		"tslint": "tslint -c tslint.json src/extension.ts",
-		"vscode:uninstall": "node ./out/uninstall"
-	},
-	"devDependencies": {
-		"@types/node": "^6.0.40",
-		"typescript": "^2.1.4",
-		"vscode": "^1.1.21"
-	},
-	"dependencies": {
-		"semver": "^5.1.1",
-		"await-semaphore": "^0.1.3"
-	},
 	"contributes": {
 		"commands": [
 			{
@@ -63,5 +50,41 @@
 				}
 			}
 		]
-	}
+	},
+	"scripts": {
+		"watch": "tsc -watch -p ./",
+		"compile": "tsc -p ./",
+		"vscode:publish": "vsce publish --yarn",
+		"vscode:prepublish": "yarn compile",
+		"vscode:uninstall": "node ./dist/uninstall.js"
+	},
+	"dependencies": {
+		"semver": "^5.1.1",
+		"await-semaphore": "^0.1.3"
+	},
+	"devDependencies": {
+		"@types/node": "^6.0.40",
+		"typescript": "^2.1.4",
+		"vscode": "^1.1.21"
+	},
+	"keywords": [
+		"tabnine",
+		"codota",
+		"client",
+		"code",
+		"autocomplete",
+		"autocompleter",
+		"suggestions",
+		"suggest",
+		"ai",
+		"ml",
+		"artificial intelligence",
+		"machine learning",
+		"deep learning",
+		"help",
+		"faster",
+		"discover",
+		"typing",
+		"type"
+	]
 }
