@@ -5,10 +5,10 @@ import * as path from "path";
 import * as readline from "readline";
 
 export class TabNine {
-	private proc: child_process.ChildProcess;
-	private rl: readline.ReadLine;
+	private proc!: child_process.ChildProcess;
+	private rl!: readline.ReadLine;
 	private numRestarts: number = 0;
-	private childDead: boolean;
+	private childDead!: boolean;
 	private mutex: Mutex = new Mutex();
 
 	constructor() {}
@@ -28,7 +28,7 @@ export class TabNine {
 			request: any_request,
 		};
 
-		const unregisterFunctions = [];
+		const unregisterFunctions: any[] = [];
 
 		const request = JSON.stringify(any_request) + "\n";
 		let response = new Promise<any>((resolve, reject) => {
@@ -49,7 +49,7 @@ export class TabNine {
 					this.rl.removeListener("line", onResponse)
 				);
 
-				this.proc.stdin.write(request, "utf8");
+				this.proc!.stdin!.write(request, "utf8");
 			} catch (e) {
 				console.log(`Error interacting with TabNine: ${e}`);
 				reject(e);
@@ -124,22 +124,22 @@ export class TabNine {
 		this.proc.on("exit", (code, signal) => {
 			this.onChildDeath();
 		});
-		this.proc.stdin.on("error", (error) => {
+		this.proc!.stdin!.on("error", (error) => {
 			console.log(`stdin error: ${error}`);
 			this.onChildDeath();
 		});
-		this.proc.stdout.on("error", (error) => {
+		this.proc!.stdout!.on("error", (error) => {
 			console.log(`stdout error: ${error}`);
 			this.onChildDeath();
 		});
 		this.proc.unref(); // AIUI, this lets Node exit without waiting for the child
 		this.rl = readline.createInterface({
-			input: this.proc.stdout,
-			output: this.proc.stdin,
+			input: this.proc!.stdout!,
+			output: this.proc!.stdin!,
 		});
 	}
 
-	private static getBinaryPath(root): string {
+	private static getBinaryPath(root: string): string {
 		let arch;
 		if (process.arch == "x32") {
 			arch = "i686";
@@ -183,7 +183,7 @@ export class TabNine {
 				if (signal) {
 					return reject(`TabNine aborted with ${signal} signal`);
 				}
-				resolve(code);
+				resolve(code as number);
 			});
 			proc.on("error", (err) => {
 				reject(err);

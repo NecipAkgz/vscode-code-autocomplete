@@ -88,7 +88,7 @@ export function activate(context: vscode.ExtensionContext) {
 						return undefined;
 					}
 					const response: AutocompleteResult = await request;
-					let completionList;
+					let completionList: vscode.CompletionItem[];
 					if (response.results.length === 0) {
 						completionList = [];
 					} else {
@@ -208,7 +208,8 @@ export function activate(context: vscode.ExtensionContext) {
 			return documentation;
 		}
 	}
-	function escapeTabStopSign(value) {
+
+	function escapeTabStopSign(value: string) {
 		return value.replace(new RegExp("\\$", "g"), "\\$");
 	}
 
@@ -283,6 +284,11 @@ function handleUninstall() {
 		const extension = vscode.extensions.all.find((x) =>
 			x.id.includes("tabnine-vscode")
 		);
+
+		if (!extension) {
+			throw new Error("Unable to find extension");
+		}
+
 		const extensionsPath = path.dirname(extension.extensionPath);
 		const uninstalledPath = path.join(extensionsPath, ".obsolete");
 		const isFileExists = (curr: fs.Stats, prev: fs.Stats) =>
