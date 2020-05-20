@@ -12,7 +12,7 @@ export function activate(context: vscode.ExtensionContext) {
 
 	const command = "TabNine::config";
 	const commandHandler = () => {
-		const request = tabNine.request("1.0.7", {
+		tabNine.request("1.0.7", {
 			Configuration: {},
 		});
 	};
