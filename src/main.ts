@@ -73,6 +73,10 @@ async function provideCompletionItems(
 			console.log(responseFromTabNine);
 		}
 
+		if (responseFromTabNine.results.length === 0) {
+			return undefined;
+		}
+
 		const oldPrefixStartPosition = position.translate(
 			0,
 			-responseFromTabNine.old_prefix.length
@@ -80,7 +84,12 @@ async function provideCompletionItems(
 		const userMessage = responseFromTabNine.user_message.join(" ");
 
 		const completionList: vscode.CompletionItem[] = [];
-		for (let i = 0; i < responseFromTabNine.results.length; i++) {
+		let resultsLength = responseFromTabNine.results.length;
+		if (resultsLength > vscodeConfig.maxNumberOfResults) {
+			resultsLength = vscodeConfig.maxNumberOfResults;
+		}
+
+		for (let i = 0; i < resultsLength; i++) {
 			const resultEntry = responseFromTabNine.results[i];
 			const completionItem = new vscode.CompletionItem(resultEntry.new_prefix);
 
