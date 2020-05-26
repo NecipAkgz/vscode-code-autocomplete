@@ -23,9 +23,9 @@ export async function activate(context: vscode.ExtensionContext) {
 		})
 	);
 
-	context.subscriptions.push(registerCommand("TabNine::restart"));
-	context.subscriptions.push(registerCommand("TabNine::sem"));
-	context.subscriptions.push(registerCommand("TabNine::no_sem"));
+	context.subscriptions.push(registerTabNineCommand("TabNine::restart"));
+	context.subscriptions.push(registerTabNineCommand("TabNine::sem"));
+	context.subscriptions.push(registerTabNineCommand("TabNine::no_sem"));
 
 	vscode.languages.registerCompletionItemProvider(
 		{ pattern: "**" },
@@ -152,7 +152,7 @@ async function provideCompletionItems(
 	}
 }
 
-function registerCommand(command: string): vscode.Disposable {
+function registerTabNineCommand(command: string): vscode.Disposable {
 	return vscode.commands.registerCommand(command, async () => {
 		try {
 			const responseFromTabNine = await sendRequestToTabNine({
