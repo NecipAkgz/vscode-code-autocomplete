@@ -23,7 +23,7 @@ Install through VS Code extensions, search for `TabNine+` by `Benas Svipas`. _If
 
 Semantic completion permits suggestions which make use of language-specific information via [Language Server Protocol](https://microsoft.github.io/language-server-protocol/). In other words it improves suggestions.
 
-If you want to enable semantic completion for specific language open file in text editor and [use command palette]() or [type command in active file]().
+If you want to enable semantic completion for specific language open file in text editor and [use command palette](#tabnine-enable-semantic-completion-for-current-language) or [type command in active file](#tabninesem).
 
 [Read more about semantic completion.](https://www.tabnine.com/semantic)
 
