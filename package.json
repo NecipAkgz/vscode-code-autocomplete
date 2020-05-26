@@ -38,11 +38,11 @@
 			},
 			{
 				"command": "TabNine::sem",
-				"title": "TabNine: enable semantic completion for the current language"
+				"title": "TabNine: enable semantic completion for current language"
 			},
 			{
 				"command": "TabNine::no_sem",
-				"title": "TabNine: disable semantic completion for the current language"
+				"title": "TabNine: disable semantic completion for current language"
 			}
 		],
 		"configuration": [
