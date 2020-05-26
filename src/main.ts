@@ -98,7 +98,7 @@ async function provideCompletionItems(
 				resultEntry.new_prefix.endsWith("::")
 			) {
 				completionItem.command = {
-					title: "triggerSuggest",
+					title: "",
 					command: "editor.action.triggerSuggest",
 				};
 			}
@@ -141,7 +141,7 @@ async function provideCompletionItems(
 				oldPrefixStartPosition,
 				position.translate(0, resultEntry.old_suffix.length)
 			);
-			completionItem.sortText = i.toString();
+			completionItem.sortText = "\uffff" + i;
 
 			completionList.push(completionItem);
 		}

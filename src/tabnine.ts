@@ -44,7 +44,7 @@ export async function sendRequestToTabNine(request: {
 	};
 
 	const unregisterFunctions: (() => void)[] = [];
-	const requestToTabNine = `${JSON.stringify(request)}\n`;
+	const requestToTabNine = JSON.stringify(request) + "\n";
 
 	const responseFromTabNine = new Promise((resolve, reject) => {
 		if (!isTabNineProcessAlive) {
