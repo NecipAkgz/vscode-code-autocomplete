@@ -35,17 +35,30 @@
 		],
 		"configuration": [
 			{
+				"type": "object",
 				"title": "TabNine",
 				"properties": {
-					"tabnine.disable_line_regex": {
-						"type": "array",
-						"default": [],
-						"description": "Disable TabNine when the current line contains a match of any of the provided regexes. For example, add \"require\" to disable TabNine when the current line contains the word 'require'."
+					"tabnine.debug": {
+						"type": "boolean",
+						"default": false,
+						"description": "Enables debug mode.",
+						"scope": "window"
 					},
-					"tabnine.disable_file_regex": {
+					"tabnine.maxNumberOfResults": {
+						"type": "number",
+						"default": 5,
+						"minimum": 1,
+						"maximum": 5,
+						"description": "Maximum number of results.",
+						"scope": "window"
+					},
+					"tabnine.disabledLanguagesIds": {
 						"type": "array",
-						"default": [],
-						"description": "Disable TabNine when the file path contains a match of any of the provided regexes. For example, add \"[.]js$\" to disable TabNine in JavaScript files."
+						"items": {
+							"type": "string"
+						},
+						"description": "List of languages IDs to disable.",
+						"scope": "window"
 					}
 				}
 			}
@@ -58,11 +71,8 @@
 		"vscode:prepublish": "yarn compile",
 		"vscode:uninstall": "node ./dist/uninstall.js"
 	},
-	"dependencies": {
-		"await-semaphore": "^0.1.3"
-	},
 	"devDependencies": {
-		"@types/node": "^14.0.4",
+		"@types/node": "^14.0.5",
 		"@types/vscode": "^1.30.0",
 		"typescript": "^3.9.3"
 	},

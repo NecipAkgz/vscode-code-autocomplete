@@ -1,9 +1,10 @@
-import { TabNine } from "./TabNine";
+import { reportUninstallToTabNine } from "./tabnine";
 
-async function main() {
-	let code = await TabNine.reportUninstall();
-
-	process.exit(code);
-}
-
-main().catch(console.error);
+(async function main() {
+	try {
+		const exitCode = await reportUninstallToTabNine();
+		process.exit(exitCode);
+	} catch (err) {
+		console.error(err);
+	}
+})();
