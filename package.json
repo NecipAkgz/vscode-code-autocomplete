@@ -30,7 +30,19 @@
 		"commands": [
 			{
 				"command": "TabNine::config",
-				"title": "TabNine: config"
+				"title": "TabNine: open config"
+			},
+			{
+				"command": "TabNine::restart",
+				"title": "TabNine: restart"
+			},
+			{
+				"command": "TabNine::sem",
+				"title": "TabNine: enable semantic completion for the current language"
+			},
+			{
+				"command": "TabNine::no_sem",
+				"title": "TabNine: disable semantic completion for the current language"
 			}
 		],
 		"configuration": [

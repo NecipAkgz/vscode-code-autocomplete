@@ -23,6 +23,10 @@ export async function activate(context: vscode.ExtensionContext) {
 		})
 	);
 
+	context.subscriptions.push(registerCommand("TabNine::restart"));
+	context.subscriptions.push(registerCommand("TabNine::sem"));
+	context.subscriptions.push(registerCommand("TabNine::no_sem"));
+
 	vscode.languages.registerCompletionItemProvider(
 		{ pattern: "**" },
 		{ provideCompletionItems },
@@ -139,4 +143,24 @@ async function provideCompletionItems(
 	}
 }
 
-export function deactivate() {}
+function registerCommand(command: string): vscode.Disposable {
+	return vscode.commands.registerCommand(command, async () => {
+		try {
+			const responseFromTabNine = await sendRequestToTabNine({
+				Autocomplete: {
+					filename: vscode.window.activeTextEditor?.document.fileName ?? "",
+					before: command,
+					after: command,
+					region_includes_beginning: true,
+					region_includes_end: true,
+					max_num_results: 1,
+				},
+			});
+			vscode.window.showInformationMessage(
+				responseFromTabNine.results[0].new_prefix
+			);
+		} catch (err) {
+			vscode.window.showErrorMessage(err);
+		}
+	});
+}
