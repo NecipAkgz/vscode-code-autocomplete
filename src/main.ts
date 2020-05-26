@@ -141,7 +141,7 @@ async function provideCompletionItems(
 				oldPrefixStartPosition,
 				position.translate(0, resultEntry.old_suffix.length)
 			);
-			completionItem.sortText = "\uffff" + i;
+			completionItem.sortText = "\uffff9999" + i;
 
 			completionList.push(completionItem);
 		}
