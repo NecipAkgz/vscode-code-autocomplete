@@ -15,6 +15,10 @@
 
 Install through VS Code extensions, search for `TabNine+` by `Benas Svipas`. _If you can't find extension by name try to search by publisher name._
 
+## Usage
+
+Open any file in text editor and just start typing.
+
 ## Bundled binary
 
 [TabNine (2.8.2)](https://github.com/codota/TabNine) is bundled with this extension. After installing this extension you can immediately start to use TabNine, you don't need to do anything additionally. But if you want to improve experience with TabNine, continue to read below.
@@ -23,7 +27,7 @@ Install through VS Code extensions, search for `TabNine+` by `Benas Svipas`. _If
 
 Semantic completion permits suggestions which make use of language-specific information via [Language Server Protocol](https://microsoft.github.io/language-server-protocol/). In other words it improves suggestions.
 
-If you want to enable semantic completion for specific language open file in text editor and [use command palette](#tabnine-enable-semantic-completion-for-current-language) or [type command in active file](#tabninesem).
+If you want to enable semantic completion for specific language open file in text editor and [use command palette](#commands) or [type command in active file](#commands).
 
 [Read more about semantic completion.](https://www.tabnine.com/semantic)
 
