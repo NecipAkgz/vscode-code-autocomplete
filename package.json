@@ -61,7 +61,7 @@
 						"default": 5,
 						"minimum": 1,
 						"maximum": 5,
-						"description": "Maximum number of results.",
+						"description": "Maximum number of results returned by TabNine.",
 						"scope": "window"
 					},
 					"tabnine.disabledLanguagesIds": {
