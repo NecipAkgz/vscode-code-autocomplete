@@ -26,6 +26,7 @@ export enum Trigger {
 	HASH = "#",
 	AT = "@",
 	EXCLAMATION = "!",
+	BACKQUOTE = "`",
 }
 
 export const allTabNineCompletionTriggers: string[] = Object.values(Trigger);
