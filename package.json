@@ -2,7 +2,7 @@
 	"name": "tabnine-plus",
 	"displayName": "TabNine+",
 	"description": "TabNine client (all-language autocompleter) for the VS Code.",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"publisher": "svipas",
 	"icon": "icon.png",
 	"main": "./dist/main.js",

@@ -1,5 +1,11 @@
 ## [Unreleased]
 
+## 1.0.1 (May 29, 2020)
+
+- Update `README`.
+- Change description of `tabnine.maxNumberOfResults` config.
+- Add additional trigger **`**.
+
 ## 1.0.0 (May 26, 2020)
 
 - Fork [tabnine-vscode](https://github.com/codota/tabnine-vscode) (2.8.2).
