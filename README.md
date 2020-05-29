@@ -31,12 +31,10 @@ If you want to enable semantic completion for specific language open file in tex
 
 [Read more about semantic completion.](https://www.tabnine.com/semantic)
 
-## Local vs Cloud
+## Plans
 
 <details>
-<summary><strong>Local</strong></summary>
-
-TabNine Local uses your machine's CPU to run a deep learning model for providing completions. Your code stays on your machine.
+<summary><strong>Free</strong></summary>
 
 - Project size limit: <kbd>400 KB</kbd>
 - Code completions for all languages: <kbd>✓</kbd>
@@ -45,13 +43,15 @@ TabNine Local uses your machine's CPU to run a deep learning model for providing
 - Works offline: <kbd>✓</kbd>
 - [Deep TabNine Cloud](https://www.tabnine.com/subscribe#cloud) - use GPU-accelerated cloud servers (optional): <kbd>x</kbd>
 - Priority support: <kbd>x</kbd>
+- Self-hosted option: <kbd>x</kbd>
+- Train a model specialized for your code: <kbd>x</kbd>
 
 </details>
 
 <details>
-<summary><strong>Cloud</strong></summary>
+<summary><strong>Professional</strong></summary>
 
-Enabling TabNine Cloud sends small parts of your code to our servers to provide GPU-accelerated completions. Other than for the purpose of fulfilling your query, your data isn't used, saved or logged in any way.
+[Try TabNine Professional for a 14-day free trial.](https://www.tabnine.com/trial)
 
 - Project size limit: <kbd>Unlimited</kbd>
 - Code completions for all languages: <kbd>✓</kbd>
@@ -60,86 +60,86 @@ Enabling TabNine Cloud sends small parts of your code to our servers to provide 
 - Works offline: <kbd>✓</kbd>
 - [Deep TabNine Cloud](https://www.tabnine.com/subscribe#cloud) - use GPU-accelerated cloud servers (optional): <kbd>✓</kbd>
 - Priority support: <kbd>✓</kbd>
+- Self-hosted option: <kbd>x</kbd>
+- Train a model specialized for your code: <kbd>x</kbd>
 
 </details>
 
-## Commands
+<details>
+<summary><strong>Enterprise</strong></summary>
+
+Contact TabNine at enterprise@tabnine.com for pricing and information.
+
+- Project size limit: <kbd>Unlimited</kbd>
+- Code completions for all languages: <kbd>✓</kbd>
+- Code completions based on your code: <kbd>✓</kbd>
+- [Deep TabNine](https://www.tabnine.com/subscribe#local) completions based on millions of open source projects: <kbd>✓</kbd>
+- Works offline: <kbd>✓</kbd>
+- [Deep TabNine Cloud](https://www.tabnine.com/subscribe#cloud) - use GPU-accelerated cloud servers (optional): <kbd>✓</kbd>
+- Priority support: <kbd>✓</kbd>
+- Self-hosted option: <kbd>✓</kbd>
+- Train a model specialized for your code: <kbd>✓</kbd>
+
+</details>
+
+## Local vs Cloud
+
+<details>
+<summary><strong>Local</strong></summary>
+
+TabNine Local uses your machine's CPU to run a deep learning model for providing completions. Your code stays on your machine.
+
+</details>
+
+<details>
+<summary><strong>Cloud</strong></summary>
+
+Enabling TabNine Cloud sends small parts of your code to our servers to provide GPU-accelerated completions. Other than for the purpose of fulfilling your query, your data isn't used, saved or logged in any way.
+
+</details>
+
+## Commands & Settings
 
 <details>
 <summary><strong>Command palette</strong></summary>
 
-Commands below are available in command palette.
+Commands below are available in VS Code command palette.
 
-#### TabNine: open config
-
-Opens configuration panel.
-
-#### TabNine: restart
-
-Restarts TabNine.
-
-#### TabNine: enable semantic completion for current language
-
-Enables semantic completion for current language.
-
-#### TabNine: disable semantic completion for current language
-
-Disables semantic completion for current language.
+- `TabNine: open config`: opens configuration panel
+- `TabNine: restart`: restarts TabNine
+- `TabNine: enable semantic completion for current language`: enables semantic completion for current language
+- `TabNine: disable semantic completion for current language`: disables semantic completion for current language
 
 </details>
 
 <details>
 <summary><strong>Text</strong></summary>
 
-Commands below are available in active file, to use them simply type the command.
+Commands below are available in VS Code active file, to use them simply type the command.
 
-#### TabNine::config
+- `TabNine::config`: opens configuration panel
+- `TabNine::version`: returns current TabNine version
+- `TabNine::config_dir`: returns directory where TabNine stores its configuration
+- `TabNine::active`: checks whether TabNine has been activated
+- `TabNine::restart`: restarts TabNine
+- `TabNine::become_beta_tester`: enables beta releases of TabNine
+- `TabNine::disable_auto_update`: disables automatic updates
+- `TabNine::enable_auto_update`: enables automatic updates
+- `TabNine::ignore_semantic`: ignores semantic completion error messages
+- `TabNine::unignore_semantic`: enables semantic completion error messages
+- `TabNine::sem`: enables semantic completion for current language
+- `TabNine::no_sem`: disables semantic completion for current language
 
-Opens configuration panel.
+</details>
 
-#### TabNine::version
+<details>
+<summary><strong>Settings</strong></summary>
 
-Returns current TabNine version.
+Settings below are available in VS Code.
 
-#### TabNine::config_dir
-
-Returns directory where TabNine stores its configuration.
-
-#### TabNine::active
-
-Checks whether TabNine has been activated.
-
-#### TabNine::restart
-
-Restarts TabNine.
-
-#### TabNine::become_beta_tester
-
-Enables beta releases of TabNine.
-
-#### TabNine::disable_auto_update
-
-Disables automatic updates.
-
-#### TabNine::enable_auto_update
-
-Enables automatic updates.
-
-#### TabNine::ignore_semantic
-
-Ignores semantic completion error messages.
-
-#### TabNine::unignore_semantic
-
-Enables semantic completion error messages.
-
-#### TabNine::sem
-
-Enables semantic completion for current language.
-
-#### TabNine::no_sem
-
-Disables semantic completion for current language.
+- `tabnine.debug`: enables debug mode
+- `tabnine.maxNumberOfResults`: maximum number of results returned by TabNine
+- `tabnine.disabledLanguagesIds`: list of languages IDs to disable
 
 </details>
 
