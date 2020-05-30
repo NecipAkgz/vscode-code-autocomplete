@@ -7,7 +7,7 @@ export class StatusBarItem {
 	private _isVisible = false;
 
 	constructor() {
-		this._statusBarItem.text = "TabNine+";
+		this._statusBarItem.text = "TabNine";
 		this.tooltip = "Spawning TabNine process...";
 		this.show();
 	}
