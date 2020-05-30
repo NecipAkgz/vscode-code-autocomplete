@@ -2,7 +2,7 @@
 	"name": "code-autocomplete",
 	"displayName": "Code Autocomplete",
 	"description": "TabNine client (all-language autocomplete) for the VS Code.",
-	"version": "1.0.1",
+	"version": "1.0.2",
 	"publisher": "svipas",
 	"icon": "icon.png",
 	"main": "./dist/main.js",

@@ -1,5 +1,12 @@
 ## [Unreleased]
 
+## 1.0.2 (May 30, 2020)
+
+- Change icon of extension.
+- Change status bar text from `TabNine+` to `TabNine`.
+- Update `package.json` with new name of extension, etc.
+- Update `README`.
+
 ## 1.0.1 (May 29, 2020)
 
 - Update `README`.
