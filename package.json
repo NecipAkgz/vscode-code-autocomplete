@@ -1,17 +1,17 @@
 {
-	"name": "tabnine-plus",
-	"displayName": "TabNine+",
-	"description": "TabNine client (all-language autocompleter) for the VS Code.",
+	"name": "code-autocomplete",
+	"displayName": "Code Autocomplete",
+	"description": "TabNine client (all-language autocomplete) for the VS Code.",
 	"version": "1.0.1",
 	"publisher": "svipas",
 	"icon": "icon.png",
 	"main": "./dist/main.js",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/svipas/vscode-tabnine-plus.git"
+		"url": "https://github.com/svipas/vscode-code-autocomplete.git"
 	},
 	"bugs": {
-		"url": "https://github.com/svipas/vscode-tabnine-plus/issues"
+		"url": "https://github.com/svipas/vscode-code-autocomplete/issues"
 	},
 	"engines": {
 		"vscode": "^1.30.0"
@@ -90,9 +90,6 @@
 		"typescript": "^3.9.3"
 	},
 	"keywords": [
-		"tabnine",
-		"codota",
-		"client",
 		"code",
 		"autocomplete",
 		"autocompleter",
