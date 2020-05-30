@@ -1,6 +1,8 @@
-# TabNine+ &middot; [![Visual Studio Marketplace](https://img.shields.io/visual-studio-marketplace/v/svipas.tabnine-plus.svg)](https://marketplace.visualstudio.com/items?itemName=svipas.tabnine-plus)
+# Code Autocomplete &middot; [![Visual Studio Marketplace](https://img.shields.io/visual-studio-marketplace/v/svipas.code-autocomplete.svg)](https://marketplace.visualstudio.com/items?itemName=svipas.code-autocomplete)
 
-[TabNine](https://www.tabnine.com) client (all-language autocompleter) for the VS Code. To see the difference between [tabnine-vscode](https://github.com/codota/tabnine-vscode) you can take a look at the [CHANGELOG](https://github.com/svipas/vscode-tabnine-plus/blob/master/CHANGELOG.md).
+[TabNine](https://www.tabnine.com) client (all-language autocomplete) for the VS Code.
+
+&#x26a0; This is not official TabNine extension for VS Code. You can find official TabNine extension here: [tabnine-vscode](https://github.com/codota/tabnine-vscode). I created this extension to change some things to meet my needs, you can take a look at the [CHANGELOG](https://github.com/svipas/vscode-code-autocomplete/blob/master/CHANGELOG.md) to know what was changed. I personally recommend to use official TabNine extension.
 
 [TabNine](https://www.tabnine.com) features:
 
@@ -13,7 +15,7 @@
 
 ## Installation
 
-Install through VS Code extensions, search for `TabNine+` by `Benas Svipas`. _If you can't find extension by name try to search by publisher name._
+Install through VS Code extensions, search for `Code Autocomplete` by `Benas Svipas`. _If you can't find extension by name try to search by publisher name._
 
 ## Usage
 
