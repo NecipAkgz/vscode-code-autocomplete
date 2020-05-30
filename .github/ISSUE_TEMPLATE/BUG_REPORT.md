@@ -6,7 +6,7 @@ about: Create a report to help to improve this extension
 - OS version:
 - VS Code version:
 - Programming language:
-- TabNine extension version:
+- Extension version:
 
 ### Logs
 
