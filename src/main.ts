@@ -1,40 +1,33 @@
 import * as vscode from "vscode";
 import { getVSCodeConfig } from "./config";
-import { activateTabNine, sendRequestToTabNine } from "./tabnine";
+import {
+	sendRequestToTabNine,
+	startAndHookIntoTabNineProcess,
+} from "./tabnine";
 import { allTabNineCompletionTriggers } from "./Trigger";
 
 const CHAR_LIMIT = 100_000;
 const DEFAULT_DETAIL_MESSAGE = "TabNine";
 
 export async function activate(context: vscode.ExtensionContext) {
-	try {
-		await activateTabNine();
-	} catch (err) {
+	startAndHookIntoTabNineProcess().catch((err) => {
 		vscode.window.showErrorMessage(err);
-	}
+	});
 
 	context.subscriptions.push(
-		vscode.commands.registerCommand("TabNine::config", async () => {
-			try {
-				await sendRequestToTabNine({ Configuration: {} });
-			} catch (err) {
-				vscode.window.showErrorMessage(err);
-			}
-		})
+		vscode.languages.registerCompletionItemProvider(
+			[
+				{ scheme: "file", pattern: "**" },
+				{ scheme: "untitled", pattern: "**" },
+			],
+			{ provideCompletionItems },
+			...allTabNineCompletionTriggers
+		)
 	);
-
+	context.subscriptions.push(registerTabNineCommand("TabNine::config"));
 	context.subscriptions.push(registerTabNineCommand("TabNine::restart"));
 	context.subscriptions.push(registerTabNineCommand("TabNine::sem"));
 	context.subscriptions.push(registerTabNineCommand("TabNine::no_sem"));
-
-	vscode.languages.registerCompletionItemProvider(
-		[
-			{ scheme: "file", pattern: "**" },
-			{ scheme: "untitled", pattern: "**" },
-		],
-		{ provideCompletionItems },
-		...allTabNineCompletionTriggers
-	);
 }
 
 async function provideCompletionItems(

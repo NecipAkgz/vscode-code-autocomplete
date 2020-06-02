@@ -128,10 +128,6 @@ export async function reportUninstallToTabNine(): Promise<number> {
 	});
 }
 
-export function activateTabNine(): Promise<void> {
-	return startAndHookIntoTabNineProcess();
-}
-
 /**
  * Spawns a new TabNine process by running executable from "binaries" folder.
  */
@@ -182,7 +178,7 @@ async function restartTabNineProcess(): Promise<void> {
 /**
  * Starts and hooks into a new TabNine process.
  */
-async function startAndHookIntoTabNineProcess(): Promise<void> {
+export async function startAndHookIntoTabNineProcess(): Promise<void> {
 	const { version, process } = await spawnTabNineProcess();
 	tabNineVersion = version;
 	tabNineProcess = process;
