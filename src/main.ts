@@ -17,8 +17,8 @@ export async function activate(context: vscode.ExtensionContext) {
 	context.subscriptions.push(
 		vscode.languages.registerCompletionItemProvider(
 			[
-				{ scheme: "file", pattern: "**" },
-				{ scheme: "untitled", pattern: "**" },
+				{ scheme: "file", language: "*" },
+				{ scheme: "untitled", language: "*" },
 			],
 			{ provideCompletionItems },
 			...allTabNineCompletionTriggers
