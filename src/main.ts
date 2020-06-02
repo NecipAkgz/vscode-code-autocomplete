@@ -28,7 +28,10 @@ export async function activate(context: vscode.ExtensionContext) {
 	context.subscriptions.push(registerTabNineCommand("TabNine::no_sem"));
 
 	vscode.languages.registerCompletionItemProvider(
-		{ pattern: "**" },
+		[
+			{ scheme: "file", pattern: "**" },
+			{ scheme: "untitled", pattern: "**" },
+		],
 		{ provideCompletionItems },
 		...allTabNineCompletionTriggers
 	);
@@ -42,7 +45,7 @@ async function provideCompletionItems(
 		const vscodeConfig = getVSCodeConfig();
 
 		if (vscodeConfig.disabledLanguagesIds.includes(document.languageId)) {
-			return undefined;
+			return;
 		}
 
 		const offset = document.offsetAt(position);
@@ -74,7 +77,7 @@ async function provideCompletionItems(
 		}
 
 		if (responseFromTabNine.results.length === 0) {
-			return undefined;
+			return;
 		}
 
 		const oldPrefixStartPosition = position.translate(
