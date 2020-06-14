@@ -137,9 +137,13 @@ async function spawnTabNineProcess(
 }
 
 function onTabNineProcessDeath(err?: string): void {
+	if (tabNineProcess?.killed) {
+		return;
+	}
 	if (err) {
 		console.error(err);
 	}
+
 	isTabNineProcessAlive = false;
 	statusBarItem.tooltip = "TabNine process died";
 	setTimeout(() => restartTabNineProcess(), RESTART_AFTER_MS);
