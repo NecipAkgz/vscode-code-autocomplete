@@ -49,9 +49,14 @@ export async function activate(context: vscode.ExtensionContext) {
 
 async function provideCompletionItems(
 	document: vscode.TextDocument,
-	position: vscode.Position
+	position: vscode.Position,
+	token: vscode.CancellationToken
 ) {
 	try {
+		if (token.isCancellationRequested) {
+			return;
+		}
+
 		const vscodeConfig = getVSCodeConfig();
 		const offset = document.offsetAt(position);
 		const beforeStartOffset = Math.max(0, offset - CHAR_LIMIT);
