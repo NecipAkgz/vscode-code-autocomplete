@@ -1,9 +1,9 @@
 import * as child_process from "child_process";
 import * as path from "path";
 import * as vscode from "vscode";
+import { getVSCodeConfig } from "./config";
 import { StatusBarItem } from "./StatusBarItem";
 import { getTabNineVersionAndBinaryPath } from "./utils";
-import { getVSCodeConfig } from "./config";
 
 export interface TabNineAutocompleteResponse {
 	docs: string[];
@@ -111,23 +111,6 @@ export async function sendRequestToTabNine(request: {
 	]).finally(() => {
 		unregisterFunctions.forEach((fn) => fn());
 	}) as Promise<TabNineAutocompleteResponse>;
-}
-
-export async function reportUninstallToTabNine(): Promise<number> {
-	return new Promise(async (resolve, reject) => {
-		const { process } = await spawnTabNineProcess(true, "--uninstalled");
-		process
-			.on("exit", (code, signal) => {
-				if (signal) {
-					return reject(`TabNine process aborted with ${signal} signal`);
-				}
-				if (code == null) {
-					return reject("TabNine process exited with null code");
-				}
-				resolve(code);
-			})
-			.on("error", (err) => reject(err));
-	});
 }
 
 /**

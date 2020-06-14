@@ -95,8 +95,7 @@
 		"watch": "tsc -watch -p ./",
 		"compile": "tsc -p ./",
 		"vscode:publish": "vsce publish --yarn",
-		"vscode:prepublish": "yarn compile",
-		"vscode:uninstall": "node ./dist/uninstall.js"
+		"vscode:prepublish": "yarn compile"
 	},
 	"devDependencies": {
 		"@types/node": "^14.0.5",
