@@ -139,6 +139,7 @@ Commands below are available in VS Code active file, to use them simply type the
 
 Settings below are available in VS Code.
 
+- `tabnine.enable`: enables TabNine completions
 - `tabnine.debug`: enables debug mode
 - `tabnine.maxNumberOfResults`: maximum number of results returned by TabNine
 - `tabnine.disabledLanguagesIds`: list of languages IDs to disable

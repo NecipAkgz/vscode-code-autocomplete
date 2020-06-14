@@ -1,6 +1,7 @@
 import * as vscode from "vscode";
 
 interface Config {
+	enable: boolean;
 	debug: boolean;
 	maxNumberOfResults: number;
 	disabledLanguagesIds: string[];

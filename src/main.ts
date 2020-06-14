@@ -9,7 +9,13 @@ import { allTabNineCompletionTriggers } from "./Trigger";
 const CHAR_LIMIT = 100_000;
 const DEFAULT_DETAIL_MESSAGE = "TabNine";
 
-export async function activate(context: vscode.ExtensionContext) {
+export function activate(context: vscode.ExtensionContext) {
+	const vscodeConfig = getVSCodeConfig();
+
+	if (!vscodeConfig.enable) {
+		return;
+	}
+
 	startAndHookIntoTabNineProcess().catch((err) => {
 		vscode.window.showErrorMessage(err);
 	});

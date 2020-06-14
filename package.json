@@ -50,6 +50,12 @@
 				"type": "object",
 				"title": "TabNine",
 				"properties": {
+					"tabnine.enable": {
+						"type": "boolean",
+						"default": true,
+						"description": "Enables TabNine completions. Restart required.",
+						"scope": "window"
+					},
 					"tabnine.debug": {
 						"type": "boolean",
 						"default": false,
