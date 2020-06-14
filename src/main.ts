@@ -9,7 +9,7 @@ import { allTabNineCompletionTriggers } from "./Trigger";
 const CHAR_LIMIT = 100_000;
 const DEFAULT_DETAIL_MESSAGE = "TabNine";
 
-export function activate(context: vscode.ExtensionContext) {
+export async function activate(context: vscode.ExtensionContext) {
 	const vscodeConfig = getVSCodeConfig();
 
 	if (!vscodeConfig.enable) {
@@ -20,12 +20,23 @@ export function activate(context: vscode.ExtensionContext) {
 		vscode.window.showErrorMessage(err);
 	});
 
+	const allVSCodeLanguages = await vscode.languages.getLanguages();
+	const documentFilters: vscode.DocumentFilter[] = [];
+
+	allVSCodeLanguages.forEach((lang) => {
+		if (vscodeConfig.disabledLanguagesIds.includes(lang)) {
+			return;
+		}
+
+		documentFilters.push(
+			{ scheme: "file", language: lang },
+			{ scheme: "untitled", language: lang }
+		);
+	});
+
 	context.subscriptions.push(
 		vscode.languages.registerCompletionItemProvider(
-			[
-				{ scheme: "file", language: "*" },
-				{ scheme: "untitled", language: "*" },
-			],
+			documentFilters,
 			{ provideCompletionItems },
 			...allTabNineCompletionTriggers
 		)
@@ -42,11 +53,6 @@ async function provideCompletionItems(
 ) {
 	try {
 		const vscodeConfig = getVSCodeConfig();
-
-		if (vscodeConfig.disabledLanguagesIds.includes(document.languageId)) {
-			return;
-		}
-
 		const offset = document.offsetAt(position);
 		const beforeStartOffset = Math.max(0, offset - CHAR_LIMIT);
 		const afterEndOffset = offset + CHAR_LIMIT;

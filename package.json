@@ -75,7 +75,7 @@
 						"items": {
 							"type": "string"
 						},
-						"description": "List of languages IDs to disable.",
+						"description": "List of languages IDs to disable. Restart required.",
 						"scope": "window"
 					}
 				}
