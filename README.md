@@ -143,6 +143,7 @@ Settings below are available in VS Code.
 - `tabnine.debug`: enables debug mode
 - `tabnine.maxNumberOfResults`: maximum number of results returned by TabNine
 - `tabnine.disabledLanguagesIds`: list of languages IDs to disable
+- `tabnine.requestTimeout`: timeout in milliseconds after which TabNine request is terminated
 
 </details>
 

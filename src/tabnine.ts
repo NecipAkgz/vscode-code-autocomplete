@@ -3,6 +3,7 @@ import * as path from "path";
 import * as vscode from "vscode";
 import { StatusBarItem } from "./StatusBarItem";
 import { getTabNineVersionAndBinaryPath } from "./utils";
+import { getVSCodeConfig } from "./config";
 
 export interface TabNineAutocompleteResponse {
 	docs: string[];
@@ -44,7 +45,6 @@ export async function sendRequestToTabNine(request: {
 	};
 
 	const unregisterFunctions: (() => void)[] = [];
-	const requestToTabNine = JSON.stringify(request) + "\n";
 
 	const responseFromTabNine = new Promise((resolve, reject) => {
 		if (!isTabNineProcessAlive) {
@@ -67,6 +67,7 @@ export async function sendRequestToTabNine(request: {
 			tabNineProcess?.stdout?.off("data", onTabNineResponse);
 		});
 
+		const requestToTabNine = JSON.stringify(request) + "\n";
 		tabNineProcess?.stdin?.write(requestToTabNine, "utf-8");
 	});
 
@@ -76,10 +77,11 @@ export async function sendRequestToTabNine(request: {
 			return reject("TabNine process is currently dead");
 		}
 
+		const vscodeConfig = getVSCodeConfig();
 		const requestTimeout = setTimeout(() => {
 			statusBarItem.tooltip = "Request to TabNine timed out";
 			reject("Request to TabNine timed out");
-		}, 1000);
+		}, vscodeConfig.requestTimeout);
 
 		unregisterFunctions.push(() => clearTimeout(requestTimeout));
 	});

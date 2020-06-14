@@ -77,6 +77,14 @@
 						},
 						"description": "List of languages IDs to disable. Restart required.",
 						"scope": "window"
+					},
+					"tabnine.requestTimeout": {
+						"type": "number",
+						"default": 50,
+						"minimum": 50,
+						"maximum": 1000,
+						"description": "Timeout in milliseconds after which TabNine request is terminated.",
+						"scope": "window"
 					}
 				}
 			}

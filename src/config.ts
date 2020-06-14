@@ -5,6 +5,7 @@ interface Config {
 	debug: boolean;
 	maxNumberOfResults: number;
 	disabledLanguagesIds: string[];
+	requestTimeout: number;
 }
 
 export function getVSCodeConfig(): Config {
