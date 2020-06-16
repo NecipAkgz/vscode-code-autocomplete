@@ -1,7 +1,6 @@
 import * as child_process from "child_process";
 import * as path from "path";
 import * as vscode from "vscode";
-import { getVSCodeConfig } from "./config";
 import { StatusBarItem } from "./StatusBarItem";
 import { getTabNineVersionAndBinaryPath } from "./utils";
 
@@ -36,9 +35,12 @@ let tabNineVersion: string | undefined;
 let numberOfRestarts = 0;
 let isTabNineProcessAlive = false;
 
-export async function sendRequestToTabNine(request: {
-	[key: string]: any;
-}): Promise<TabNineAutocompleteResponse> {
+export async function sendRequestToTabNine(
+	request: {
+		[key: string]: any;
+	},
+	requestTimeoutMs: number
+): Promise<TabNineAutocompleteResponse> {
 	request = {
 		version: tabNineVersion,
 		request,
@@ -77,11 +79,10 @@ export async function sendRequestToTabNine(request: {
 			return reject("TabNine process is currently dead");
 		}
 
-		const vscodeConfig = getVSCodeConfig();
 		const requestTimeout = setTimeout(() => {
 			statusBarItem.tooltip = "Request to TabNine timed out";
 			reject("Request to TabNine timed out");
-		}, vscodeConfig.requestTimeout);
+		}, requestTimeoutMs);
 
 		unregisterFunctions.push(() => clearTimeout(requestTimeout));
 	});

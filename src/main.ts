@@ -70,17 +70,20 @@ async function provideCompletionItems(
 			new vscode.Range(position, afterEndPosition)
 		);
 
-		const responseFromTabNine = await sendRequestToTabNine({
-			Autocomplete: {
-				filename: document.fileName,
-				before: beforeStartPositionText,
-				after: afterEndPositionText,
-				region_includes_beginning: beforeStartOffset === 0,
-				region_includes_end:
-					document.offsetAt(afterEndPosition) !== afterEndOffset,
-				max_num_results: vscodeConfig.maxNumberOfResults,
+		const responseFromTabNine = await sendRequestToTabNine(
+			{
+				Autocomplete: {
+					filename: document.fileName,
+					before: beforeStartPositionText,
+					after: afterEndPositionText,
+					region_includes_beginning: beforeStartOffset === 0,
+					region_includes_end:
+						document.offsetAt(afterEndPosition) !== afterEndOffset,
+					max_num_results: vscodeConfig.maxNumberOfResults,
+				},
 			},
-		});
+			vscodeConfig.requestTimeout
+		);
 
 		if (vscodeConfig.debug) {
 			console.log(responseFromTabNine);
@@ -168,16 +171,19 @@ async function provideCompletionItems(
 function registerTabNineCommand(command: string): vscode.Disposable {
 	return vscode.commands.registerCommand(command, async () => {
 		try {
-			const responseFromTabNine = await sendRequestToTabNine({
-				Autocomplete: {
-					filename: vscode.window.activeTextEditor?.document.fileName ?? "",
-					before: command,
-					after: command,
-					region_includes_beginning: true,
-					region_includes_end: true,
-					max_num_results: 1,
+			const responseFromTabNine = await sendRequestToTabNine(
+				{
+					Autocomplete: {
+						filename: vscode.window.activeTextEditor?.document.fileName ?? "",
+						before: command,
+						after: command,
+						region_includes_beginning: true,
+						region_includes_end: true,
+						max_num_results: 1,
+					},
 				},
-			});
+				500
+			);
 			vscode.window.showInformationMessage(
 				responseFromTabNine.results[0].new_prefix
 			);
