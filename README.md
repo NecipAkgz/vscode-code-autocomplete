@@ -11,21 +11,25 @@
 - Type long variable names in just a few keystrokes using the mnemonic completion engine.
 - Highly responsive, typically produces a list of suggestions in less than 10 milliseconds.
 
-&#x26a0; Difference between [official TabNine extension](https://github.com/codota/tabnine-vscode):
+<details>
+<summary><strong>&#x26a0; Difference between official TabNine extension</strong></summary>
 
 - Updated `README` to contain as much documentation as possible.
 - Added more VS Code settings, TabNine commands and triggers.
 - Removed restriction to show only 1 result if end of the word is `.` or `::`.
 - Always shows correct suggestion detail for e.g. `41%` or `TabNine`.
-- Won't preselect suggestions.
-- De-prioritized suggestions to be at the end of the list whenever it's possible.
-- Changed suggestions kind from `property` to `text` in order to avoid misunderstanding which suggestions are from TabNine.
+- Won't preselect TabNine suggestions.
+- De-prioritized TabNine suggestions to be at the end of the list whenever it's possible.
+- Changed TabNine suggestions kind from `property` to `text` in order to avoid misunderstanding which suggestions are from TabNine.
 - Triggers suggestion list if suggestion ends with `.` or `::`.
 - Included postfix in suggestions for e.g. instead of `log(` it will show `log()`.
 - Added status bar item which shows current status of TabNine.
 - Disabled suggestions for VS Code JSON files like `settings.json`, etc.
 - Starts TabNine process on VS Code startup.
-- For a full list of changes you can take a look at the [CHANGELOG](https://github.com/svipas/vscode-code-autocomplete/blob/master/CHANGELOG.md).
+
+**For a full list of changes you can take a look at the [CHANGELOG](https://github.com/svipas/vscode-code-autocomplete/blob/master/CHANGELOG.md).**
+
+</details>
 
 ## Installation
 
