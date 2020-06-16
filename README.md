@@ -23,7 +23,7 @@ Open any file in text editor and just start typing.
 
 ## Bundled binary
 
-[TabNine (2.8.2)](https://github.com/codota/TabNine) is bundled with this extension. After installing this extension you can immediately start to use TabNine, you don't need to do anything additionally. But if you want to improve experience with TabNine, continue to read below.
+[TabNine (2.8.5)](https://github.com/codota/TabNine) is bundled with this extension. After installing this extension you can immediately start to use TabNine, you don't need to do anything additionally. But if you want to improve experience with TabNine, continue to read below.
 
 ## Semantic completion
 
