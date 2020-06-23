@@ -1,11 +1,12 @@
 import * as vscode from "vscode";
 import { getVSCodeConfig } from "./config";
+import { setTabNineStatus, statusBarItem, TabNineStatus } from "./status-bar";
 import {
 	sendRequestToTabNine,
 	startAndHookIntoTabNineProcess,
 } from "./tabnine";
 import { allTabNineCompletionTriggers } from "./Trigger";
-import { downloadTabNineBinary } from "./utils";
+import { downloadTabNineBinary, logError, showErrorMessage } from "./utils";
 
 const CHAR_LIMIT = 100_000;
 const DEFAULT_DETAIL_MESSAGE = "TabNine";
@@ -14,18 +15,39 @@ const vscodeConfig = getVSCodeConfig();
 
 export async function activate(context: vscode.ExtensionContext) {
 	try {
+		setTabNineStatus(TabNineStatus.None);
+		statusBarItem.show();
+		context.subscriptions.push(statusBarItem);
+
 		if (!vscodeConfig.enable) {
+			setTabNineStatus(
+				TabNineStatus.Disabled,
+				"TabNine is disabled via config"
+			);
 			return;
 		}
 
-		await downloadTabNineBinary(context.globalState.get(TABNINE_VERSION_KEY));
+		const isTabNineBinaryDownloaded = await downloadTabNineBinary(
+			context.globalState.get(TABNINE_VERSION_KEY)
+		);
+		if (!isTabNineBinaryDownloaded) {
+			setTabNineStatus(
+				TabNineStatus.BinaryDoesNotExist,
+				"TabNine binary does not exist"
+			);
+			return;
+		}
 
 		startAndHookIntoTabNineProcess()
 			.then((version) => {
 				context.globalState.update(TABNINE_VERSION_KEY, version);
 			})
 			.catch((err) => {
-				vscode.window.showErrorMessage(err);
+				setTabNineStatus(
+					TabNineStatus.ProcessFailedToStart,
+					"TabNine process failed to start"
+				);
+				showErrorMessage(err);
 			});
 
 		const allVSCodeLanguages = await vscode.languages.getLanguages();
@@ -54,7 +76,11 @@ export async function activate(context: vscode.ExtensionContext) {
 		context.subscriptions.push(registerTabNineCommand("TabNine::sem"));
 		context.subscriptions.push(registerTabNineCommand("TabNine::no_sem"));
 	} catch (err) {
-		vscode.window.showErrorMessage(err);
+		setTabNineStatus(
+			TabNineStatus.ActivationError,
+			err instanceof Error ? err.message : err
+		);
+		showErrorMessage(err);
 	}
 }
 
@@ -176,7 +202,7 @@ async function provideCompletionItems(
 		return new vscode.CompletionList(completionItems, true);
 	} catch (err) {
 		if (vscodeConfig.debug) {
-			console.error(err);
+			logError(err);
 		}
 	}
 }
@@ -201,7 +227,7 @@ function registerTabNineCommand(command: string): vscode.Disposable {
 				responseFromTabNine.results[0].new_prefix
 			);
 		} catch (err) {
-			vscode.window.showErrorMessage(err);
+			showErrorMessage(err);
 		}
 	});
 }

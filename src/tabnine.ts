@@ -1,7 +1,7 @@
 import * as child_process from "child_process";
 import * as vscode from "vscode";
-import { StatusBarItem } from "./StatusBarItem";
-import { getTabNineVersionAndBinaryPath } from "./utils";
+import { setTabNineStatus, TabNineStatus } from "./status-bar";
+import { getTabNineVersionAndBinaryPath, logError } from "./utils";
 
 export interface TabNineAutocompleteResponse {
 	docs: string[];
@@ -27,7 +27,6 @@ export interface TabNineMarkdownStringSpec {
 
 const MAX_NUMBER_OF_RESTARTS = 10;
 const RESTART_AFTER_MS = 10_000;
-const statusBarItem = new StatusBarItem();
 
 let tabNineProcess: child_process.ChildProcess | undefined;
 let tabNineVersion: string | undefined;
@@ -51,9 +50,16 @@ export async function sendRequestToTabNine(
 	const responseFromTabNine = new Promise((resolve, reject) => {
 		const onTabNineResponse = (response: Buffer) => {
 			try {
+				setTabNineStatus(
+					TabNineStatus.ParsingSuccess,
+					`TabNine ${tabNineVersion} process is running`
+				);
 				resolve(JSON.parse(response.toString()));
 			} catch (err) {
-				statusBarItem.tooltip = "Error while parsing response from TabNine";
+				setTabNineStatus(
+					TabNineStatus.ParsingError,
+					"Error while parsing response from TabNine"
+				);
 				reject(`TabNine response parsing error: ${err}`);
 			}
 		};
@@ -70,7 +76,7 @@ export async function sendRequestToTabNine(
 
 	const timeoutTabNineRequest = new Promise((_, reject) => {
 		const requestTimeout = setTimeout(() => {
-			statusBarItem.tooltip = "Request to TabNine timed out";
+			setTabNineStatus(TabNineStatus.TimedOut, "Request to TabNine timed out");
 			reject("Request to TabNine timed out");
 		}, requestTimeoutMs);
 
@@ -79,7 +85,7 @@ export async function sendRequestToTabNine(
 
 	const tabNineProcessExit = new Promise((_, reject) => {
 		const onTabNineProcessExit = () => {
-			statusBarItem.tooltip = "TabNine process exited";
+			setTabNineStatus(TabNineStatus.ProcessExited, "TabNine process exited");
 			reject("TabNine process exited");
 		};
 
@@ -92,7 +98,10 @@ export async function sendRequestToTabNine(
 
 	const tabNineProcessDead = new Promise((_, reject) => {
 		if (!isTabNineProcessAlive) {
-			statusBarItem.tooltip = "TabNine process is currently dead";
+			setTabNineStatus(
+				TabNineStatus.ProcessDead,
+				"TabNine process is currently dead"
+			);
 			reject("TabNine process is currently dead");
 		}
 	});
@@ -138,11 +147,10 @@ function onTabNineProcessDeath(err?: string): void {
 		return;
 	}
 	if (err) {
-		console.error(err);
+		logError(err);
 	}
 
 	isTabNineProcessAlive = false;
-	statusBarItem.tooltip = "TabNine process died";
 	setTimeout(() => restartTabNineProcess(), RESTART_AFTER_MS);
 }
 
@@ -151,7 +159,7 @@ async function restartTabNineProcess(): Promise<void> {
 		return;
 	}
 	if (numberOfRestarts >= MAX_NUMBER_OF_RESTARTS) {
-		console.error("TabNine process exceeded maximum number of restarts");
+		logError("TabNine process exceeded maximum number of restarts");
 		return;
 	}
 
@@ -170,7 +178,10 @@ export async function startAndHookIntoTabNineProcess(): Promise<string> {
 	tabNineVersion = version;
 	tabNineProcess = process;
 	isTabNineProcessAlive = true;
-	statusBarItem.tooltip = `TabNine ${tabNineVersion} process is running`;
+	setTabNineStatus(
+		TabNineStatus.ProcessRunning,
+		`TabNine ${tabNineVersion} process is running`
+	);
 
 	tabNineProcess.on("exit", () => {
 		onTabNineProcessDeath();

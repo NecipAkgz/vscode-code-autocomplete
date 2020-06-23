@@ -2,6 +2,7 @@ import * as fs from "fs";
 import * as https from "https";
 import * as path from "path";
 import * as vscode from "vscode";
+import { setTabNineStatus, TabNineStatus } from "./status-bar";
 
 const fsp = fs.promises;
 const tabNineBinariesPath = path.join(__dirname, "..", "binaries");
@@ -28,9 +29,9 @@ export async function getTabNineVersionAndBinaryPath(): Promise<{
 
 export async function downloadTabNineBinary(
 	version: string | undefined
-): Promise<void> {
+): Promise<boolean> {
 	if (version && (await isFileExists(getFullPathToTabNineBinary(version)))) {
-		return;
+		return true;
 	}
 
 	const tabNineVersionFromWeb = await getTabNineVersionFromWeb();
@@ -48,6 +49,7 @@ export async function downloadTabNineBinary(
 					const binaryDirPath = fullPath.slice(0, fullPath.lastIndexOf("/"));
 					await fsp.mkdir(binaryDirPath, { recursive: true });
 
+					let totalBinaryLength: string | undefined;
 					const requestUrl = `https://update.tabnine.com/${fullPath.slice(
 						fullPath.indexOf(tabNineVersionFromWeb)
 					)}`;
@@ -58,9 +60,8 @@ export async function downloadTabNineBinary(
 							const binaryFile = fs.createWriteStream(fullPath, {
 								mode: 0o755,
 							});
-							binaryFile.on("error", (err) => reject(err.message));
+							binaryFile.on("error", (err) => reject(err));
 
-							const totalBinaryLength = res.headers["content-length"];
 							let receivedBinaryLength = 0;
 							let binaryPercentage = 0;
 							res
@@ -85,7 +86,7 @@ export async function downloadTabNineBinary(
 
 									binaryPercentage = newBinaryPercentage;
 								})
-								.on("error", (err) => reject(err.message))
+								.on("error", (err) => reject(err))
 								.on("end", () => {
 									if (token.isCancellationRequested) {
 										return;
@@ -95,10 +96,10 @@ export async function downloadTabNineBinary(
 									vscode.window.showInformationMessage(
 										`TabNine ${tabNineVersionFromWeb} binary is successfully downloaded`
 									);
-									resolve();
+									resolve(true);
 								})
 								.pipe(binaryFile)
-								.on("error", (err) => reject(err.message));
+								.on("error", (err) => reject(err));
 
 							token.onCancellationRequested(() => {
 								res.destroy();
@@ -107,17 +108,25 @@ export async function downloadTabNineBinary(
 						}
 					);
 
+					requestDownload.on("response", (res) => {
+						setTabNineStatus(
+							TabNineStatus.DownloadingBinary,
+							`Downloading TabNine ${tabNineVersionFromWeb} binary`
+						);
+						totalBinaryLength = res.headers["content-length"];
+					});
 					requestDownload.on("timeout", () =>
 						reject(`Request to ${requestUrl} timed out`)
 					);
-					requestDownload.on("error", (err) => reject(err.message));
+					requestDownload.on("error", (err) => reject(err));
 
 					token.onCancellationRequested(() => {
-						fsp.unlink(fullPath).catch((err) => reject(err.message));
+						fsp.unlink(fullPath).catch((err) => reject(err));
 						requestDownload.destroy();
+						reject("Download of TabNine binary has been cancelled");
 					});
 				} catch (err) {
-					reject(err.message);
+					reject(err);
 				}
 			});
 		}
@@ -183,4 +192,12 @@ async function isFileExists(root: string): Promise<boolean> {
 		}
 		throw err;
 	}
+}
+
+export function showErrorMessage(err: any) {
+	vscode.window.showErrorMessage(err instanceof Error ? err.message : err);
+}
+
+export function logError(err: any) {
+	console.error(err instanceof Error ? err.message : err);
 }
