@@ -59,7 +59,7 @@
 					"tabnine.debug": {
 						"type": "boolean",
 						"default": false,
-						"description": "Enables debug mode.",
+						"description": "Enables debug mode. Restart required.",
 						"scope": "window"
 					},
 					"tabnine.maxNumberOfResults": {
@@ -67,7 +67,7 @@
 						"default": 5,
 						"minimum": 1,
 						"maximum": 5,
-						"description": "Maximum number of results returned by TabNine.",
+						"description": "Maximum number of results returned by TabNine. Restart required.",
 						"scope": "window"
 					},
 					"tabnine.disabledLanguagesIds": {
@@ -83,7 +83,7 @@
 						"default": 50,
 						"minimum": 50,
 						"maximum": 1000,
-						"description": "Timeout in milliseconds after which TabNine request is terminated.",
+						"description": "Timeout in milliseconds after which TabNine request is terminated. Restart required.",
 						"scope": "window"
 					}
 				}

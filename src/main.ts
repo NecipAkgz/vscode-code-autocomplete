@@ -10,11 +10,10 @@ import { downloadTabNineBinary } from "./utils";
 const CHAR_LIMIT = 100_000;
 const DEFAULT_DETAIL_MESSAGE = "TabNine";
 const TABNINE_VERSION_KEY = "TABNINE_VERSION";
+const vscodeConfig = getVSCodeConfig();
 
 export async function activate(context: vscode.ExtensionContext) {
 	try {
-		const vscodeConfig = getVSCodeConfig();
-
 		if (!vscodeConfig.enable) {
 			return;
 		}
@@ -69,7 +68,6 @@ async function provideCompletionItems(
 			return;
 		}
 
-		const vscodeConfig = getVSCodeConfig();
 		const offset = document.offsetAt(position);
 		const beforeStartOffset = Math.max(0, offset - CHAR_LIMIT);
 		const afterEndOffset = offset + CHAR_LIMIT;
@@ -177,7 +175,9 @@ async function provideCompletionItems(
 
 		return new vscode.CompletionList(completionItems, true);
 	} catch (err) {
-		console.error(err);
+		if (vscodeConfig.debug) {
+			console.error(err);
+		}
 	}
 }
 
