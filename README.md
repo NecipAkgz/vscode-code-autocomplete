@@ -28,6 +28,7 @@ Unofficial [TabNine](https://www.tabnine.com) client (all-language autocomplete)
 - Disabled suggestions for VS Code JSON files like `settings.json`, etc.
 - Starts TabNine process on VS Code startup.
 - Automatically downloads latest TabNine binary on VS Code startup.
+- Bundled extension for faster startup.
 
 **For a full list of changes you can take a look at the [CHANGELOG](https://github.com/svipas/vscode-code-autocomplete/blob/master/CHANGELOG.md).**
 
