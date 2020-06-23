@@ -1,9 +1,7 @@
-.cache/**
 .github/**
 .vscode/**
 .vscode-test/**
 node_modules/**
-out/**
 src/**
 .gitignore
 tsconfig.json
