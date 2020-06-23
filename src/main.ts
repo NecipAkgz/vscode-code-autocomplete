@@ -5,46 +5,58 @@ import {
 	startAndHookIntoTabNineProcess,
 } from "./tabnine";
 import { allTabNineCompletionTriggers } from "./Trigger";
+import { downloadTabNineBinary } from "./utils";
 
 const CHAR_LIMIT = 100_000;
 const DEFAULT_DETAIL_MESSAGE = "TabNine";
+const TABNINE_VERSION_KEY = "TABNINE_VERSION";
 
 export async function activate(context: vscode.ExtensionContext) {
-	const vscodeConfig = getVSCodeConfig();
+	try {
+		const vscodeConfig = getVSCodeConfig();
 
-	if (!vscodeConfig.enable) {
-		return;
-	}
-
-	startAndHookIntoTabNineProcess().catch((err) => {
-		vscode.window.showErrorMessage(err);
-	});
-
-	const allVSCodeLanguages = await vscode.languages.getLanguages();
-	const documentFilters: vscode.DocumentFilter[] = [];
-
-	allVSCodeLanguages.forEach((lang) => {
-		if (vscodeConfig.disabledLanguagesIds.includes(lang)) {
+		if (!vscodeConfig.enable) {
 			return;
 		}
 
-		documentFilters.push(
-			{ scheme: "file", language: lang },
-			{ scheme: "untitled", language: lang }
-		);
-	});
+		await downloadTabNineBinary(context.globalState.get(TABNINE_VERSION_KEY));
 
-	context.subscriptions.push(
-		vscode.languages.registerCompletionItemProvider(
-			documentFilters,
-			{ provideCompletionItems },
-			...allTabNineCompletionTriggers
-		)
-	);
-	context.subscriptions.push(registerTabNineCommand("TabNine::config"));
-	context.subscriptions.push(registerTabNineCommand("TabNine::restart"));
-	context.subscriptions.push(registerTabNineCommand("TabNine::sem"));
-	context.subscriptions.push(registerTabNineCommand("TabNine::no_sem"));
+		startAndHookIntoTabNineProcess()
+			.then((version) => {
+				context.globalState.update(TABNINE_VERSION_KEY, version);
+			})
+			.catch((err) => {
+				vscode.window.showErrorMessage(err);
+			});
+
+		const allVSCodeLanguages = await vscode.languages.getLanguages();
+		const documentFilters: vscode.DocumentFilter[] = [];
+
+		allVSCodeLanguages.forEach((lang) => {
+			if (vscodeConfig.disabledLanguagesIds.includes(lang)) {
+				return;
+			}
+
+			documentFilters.push(
+				{ scheme: "file", language: lang },
+				{ scheme: "untitled", language: lang }
+			);
+		});
+
+		context.subscriptions.push(
+			vscode.languages.registerCompletionItemProvider(
+				documentFilters,
+				{ provideCompletionItems },
+				...allTabNineCompletionTriggers
+			)
+		);
+		context.subscriptions.push(registerTabNineCommand("TabNine::config"));
+		context.subscriptions.push(registerTabNineCommand("TabNine::restart"));
+		context.subscriptions.push(registerTabNineCommand("TabNine::sem"));
+		context.subscriptions.push(registerTabNineCommand("TabNine::no_sem"));
+	} catch (err) {
+		vscode.window.showErrorMessage(err);
+	}
 }
 
 async function provideCompletionItems(
@@ -182,7 +194,7 @@ function registerTabNineCommand(command: string): vscode.Disposable {
 						max_num_results: 1,
 					},
 				},
-				500
+				1000
 			);
 			vscode.window.showInformationMessage(
 				responseFromTabNine.results[0].new_prefix

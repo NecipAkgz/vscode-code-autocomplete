@@ -1,5 +1,4 @@
 import * as child_process from "child_process";
-import * as path from "path";
 import * as vscode from "vscode";
 import { StatusBarItem } from "./StatusBarItem";
 import { getTabNineVersionAndBinaryPath } from "./utils";
@@ -124,11 +123,7 @@ async function spawnTabNineProcess(
 	version: string;
 	process: child_process.ChildProcess;
 }> {
-	const allBinariesPath = path.join(__dirname, "..", "binaries");
-	const { version, binaryPath } = await getTabNineVersionAndBinaryPath(
-		allBinariesPath
-	);
-
+	const { version, binaryPath } = await getTabNineVersionAndBinaryPath();
 	return {
 		version,
 		process: child_process.spawn(binaryPath, ["--client=vscode", ...args], {
@@ -167,8 +162,9 @@ async function restartTabNineProcess(): Promise<void> {
 
 /**
  * Starts and hooks into a new TabNine process.
+ * @returns TabNine version.
  */
-export async function startAndHookIntoTabNineProcess(): Promise<void> {
+export async function startAndHookIntoTabNineProcess(): Promise<string> {
 	const { version, process } = await spawnTabNineProcess();
 	tabNineVersion = version;
 	tabNineProcess = process;
@@ -186,4 +182,6 @@ export async function startAndHookIntoTabNineProcess(): Promise<void> {
 	});
 
 	tabNineProcess.unref();
+
+	return version;
 }

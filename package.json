@@ -1,7 +1,7 @@
 {
 	"name": "code-autocomplete",
 	"displayName": "Code Autocomplete",
-	"description": "TabNine client (all-language autocomplete) for the VS Code.",
+	"description": "Unofficial TabNine client (all-language autocomplete) for the VS Code.",
 	"version": "1.0.2",
 	"publisher": "svipas",
 	"icon": "icon.png",
@@ -91,7 +91,6 @@
 		]
 	},
 	"scripts": {
-		"update-binaries": "node scripts/update-binaries.js",
 		"watch": "tsc -watch -p ./",
 		"compile": "tsc -p ./",
 		"vscode:publish": "vsce publish --yarn",
@@ -103,6 +102,9 @@
 		"typescript": "^3.9.5"
 	},
 	"keywords": [
+		"unofficial",
+		"tabnine",
+		"client",
 		"code",
 		"autocomplete",
 		"autocompleter",

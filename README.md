@@ -1,6 +1,6 @@
 # Code Autocomplete &middot; [![Visual Studio Marketplace](https://img.shields.io/visual-studio-marketplace/v/svipas.code-autocomplete.svg)](https://marketplace.visualstudio.com/items?itemName=svipas.code-autocomplete)
 
-[TabNine](https://www.tabnine.com) client (all-language autocomplete) for the VS Code.
+Unofficial [TabNine](https://www.tabnine.com) client (all-language autocomplete) for the VS Code.
 
 [TabNine](https://www.tabnine.com) features:
 
@@ -11,8 +11,10 @@
 - Type long variable names in just a few keystrokes using the mnemonic completion engine.
 - Highly responsive, typically produces a list of suggestions in less than 10 milliseconds.
 
+&#x26a0; This is not official TabNine extension for VS Code. You can find official TabNine extension here: [tabnine-vscode](https://github.com/codota/tabnine-vscode). I created this extension to change some things to meet my needs.
+
 <details>
-<summary><strong>&#x26a0; Difference between official TabNine extension</strong></summary>
+<summary><strong>Difference between official TabNine extension</strong></summary>
 
 - Updated `README` to contain as much documentation as possible.
 - Added more VS Code settings, TabNine commands and triggers.
@@ -23,9 +25,9 @@
 - Changed TabNine suggestions kind from `property` to `text` in order to avoid misunderstanding which suggestions are from TabNine.
 - Triggers suggestion list if suggestion ends with `.` or `::`.
 - Included postfix in suggestions for e.g. instead of `log(` it will show `log()`.
-- Added status bar item which shows current status of TabNine.
 - Disabled suggestions for VS Code JSON files like `settings.json`, etc.
 - Starts TabNine process on VS Code startup.
+- Automatically downloads latest TabNine binary on VS Code startup.
 
 **For a full list of changes you can take a look at the [CHANGELOG](https://github.com/svipas/vscode-code-autocomplete/blob/master/CHANGELOG.md).**
 
@@ -37,11 +39,7 @@ Install through VS Code extensions, search for `Code Autocomplete` by `Benas Svi
 
 ## Usage
 
-Open any file in text editor and just start typing.
-
-## Bundled binary
-
-[TabNine (2.8.5)](https://github.com/codota/TabNine) is bundled with this extension. After installing this extension you can immediately start to use TabNine, you don't need to do anything additionally. But if you want to improve experience with TabNine, continue to read below.
+After installing this extension latest TabNine binary is automatically downloaded. After TabNine binary is downloaded you can immediately start to use TabNine in VS Code, you don't need to do anything additionally. But if you want to improve experience with TabNine, continue to read below.
 
 ## Semantic completion
 
