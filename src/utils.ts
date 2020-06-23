@@ -48,7 +48,6 @@ export async function downloadTabNineBinary(
 					const binaryDirPath = fullPath.slice(0, fullPath.lastIndexOf("/"));
 					await fsp.mkdir(binaryDirPath, { recursive: true });
 
-					let contentLength: string | undefined;
 					const requestUrl = `https://update.tabnine.com/${fullPath.slice(
 						fullPath.indexOf(tabNineVersionFromWeb)
 					)}`;
@@ -61,29 +60,30 @@ export async function downloadTabNineBinary(
 							});
 							binaryFile.on("error", (err) => reject(err.message));
 
-							let receivedLength = 0;
-							let percentage = 0;
+							const totalBinaryLength = res.headers["content-length"];
+							let receivedBinaryLength = 0;
+							let binaryPercentage = 0;
 							res
 								.on("data", (chunk) => {
-									if (!contentLength) {
+									if (!totalBinaryLength) {
 										return;
 									}
 
-									receivedLength += chunk.length;
-									const newPercentage = Number(
+									receivedBinaryLength += chunk.length;
+									const newBinaryPercentage = Number(
 										(
-											(receivedLength * 100) /
-											Number.parseInt(contentLength)
+											(receivedBinaryLength * 100) /
+											Number.parseInt(totalBinaryLength)
 										).toFixed()
 									);
 
-									if (percentage === 0) {
+									if (binaryPercentage === 0) {
 										progress.report({ increment: 0 });
-									} else if (newPercentage > percentage) {
+									} else if (newBinaryPercentage > binaryPercentage) {
 										progress.report({ increment: 1 });
 									}
 
-									percentage = newPercentage;
+									binaryPercentage = newBinaryPercentage;
 								})
 								.on("error", (err) => reject(err.message))
 								.on("end", () => {
@@ -107,9 +107,6 @@ export async function downloadTabNineBinary(
 						}
 					);
 
-					requestDownload.on("response", (res) => {
-						contentLength = res.headers["content-length"];
-					});
 					requestDownload.on("timeout", () =>
 						reject(`Request to ${requestUrl} timed out`)
 					);
