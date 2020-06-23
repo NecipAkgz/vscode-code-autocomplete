@@ -94,7 +94,8 @@ async function provideCompletionItems(
 					max_num_results: vscodeConfig.maxNumberOfResults,
 				},
 			},
-			vscodeConfig.requestTimeout
+			vscodeConfig.requestTimeout,
+			token.onCancellationRequested
 		);
 
 		if (vscodeConfig.debug) {
@@ -111,7 +112,7 @@ async function provideCompletionItems(
 		);
 		const userMessage = responseFromTabNine.user_message.join(" ");
 
-		const completionList: vscode.CompletionItem[] = [];
+		const completionItems: vscode.CompletionItem[] = [];
 		let resultsLength = responseFromTabNine.results.length;
 		if (resultsLength > vscodeConfig.maxNumberOfResults) {
 			resultsLength = vscodeConfig.maxNumberOfResults;
@@ -171,10 +172,10 @@ async function provideCompletionItems(
 			);
 			completionItem.sortText = "\uffff9999" + i;
 
-			completionList.push(completionItem);
+			completionItems.push(completionItem);
 		}
 
-		return new vscode.CompletionList(completionList, true);
+		return new vscode.CompletionList(completionItems, true);
 	} catch (err) {
 		console.error(err);
 	}

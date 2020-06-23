@@ -38,7 +38,8 @@ export async function sendRequestToTabNine(
 	request: {
 		[key: string]: any;
 	},
-	requestTimeoutMs: number
+	requestTimeoutMs: number,
+	onCancellationRequested?: vscode.Event<any>
 ): Promise<TabNineAutocompleteResponse> {
 	request = {
 		version: tabNineVersion,
@@ -48,11 +49,6 @@ export async function sendRequestToTabNine(
 	const unregisterFunctions: (() => void)[] = [];
 
 	const responseFromTabNine = new Promise((resolve, reject) => {
-		if (!isTabNineProcessAlive) {
-			statusBarItem.tooltip = "TabNine process is currently dead";
-			return reject("TabNine process is currently dead");
-		}
-
 		const onTabNineResponse = (response: Buffer) => {
 			try {
 				resolve(JSON.parse(response.toString()));
@@ -73,11 +69,6 @@ export async function sendRequestToTabNine(
 	});
 
 	const timeoutTabNineRequest = new Promise((_, reject) => {
-		if (!isTabNineProcessAlive) {
-			statusBarItem.tooltip = "TabNine process is currently dead";
-			return reject("TabNine process is currently dead");
-		}
-
 		const requestTimeout = setTimeout(() => {
 			statusBarItem.tooltip = "Request to TabNine timed out";
 			reject("Request to TabNine timed out");
@@ -87,11 +78,6 @@ export async function sendRequestToTabNine(
 	});
 
 	const tabNineProcessExit = new Promise((_, reject) => {
-		if (!isTabNineProcessAlive) {
-			statusBarItem.tooltip = "TabNine process is currently dead";
-			return reject("TabNine process is currently dead");
-		}
-
 		const onTabNineProcessExit = () => {
 			statusBarItem.tooltip = "TabNine process exited";
 			reject("TabNine process exited");
@@ -104,10 +90,25 @@ export async function sendRequestToTabNine(
 		});
 	});
 
+	const tabNineProcessDead = new Promise((_, reject) => {
+		if (!isTabNineProcessAlive) {
+			statusBarItem.tooltip = "TabNine process is currently dead";
+			reject("TabNine process is currently dead");
+		}
+	});
+
+	const tokenCancelled = new Promise((_, reject) => {
+		onCancellationRequested?.(() => {
+			reject("Token has been cancelled");
+		});
+	});
+
 	return Promise.race([
 		responseFromTabNine,
 		timeoutTabNineRequest,
 		tabNineProcessExit,
+		tabNineProcessDead,
+		tokenCancelled,
 	]).finally(() => {
 		unregisterFunctions.forEach((fn) => fn());
 	}) as Promise<TabNineAutocompleteResponse>;
