@@ -91,15 +91,17 @@
 		]
 	},
 	"scripts": {
-		"watch": "tsc -watch -p ./",
-		"compile": "tsc -p ./",
+		"compile": "webpack --mode production",
 		"vscode:publish": "vsce publish --yarn",
 		"vscode:prepublish": "yarn compile"
 	},
 	"devDependencies": {
 		"@types/node": "^14.0.13",
 		"@types/vscode": "^1.30.0",
-		"typescript": "^3.9.5"
+		"ts-loader": "^7.0.5",
+		"typescript": "^3.9.5",
+		"webpack": "^4.43.0",
+		"webpack-cli": "^3.3.12"
 	},
 	"keywords": [
 		"unofficial",
