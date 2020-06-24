@@ -2,7 +2,7 @@
 	"name": "code-autocomplete",
 	"displayName": "Code Autocomplete",
 	"description": "Unofficial TabNine client (all-language autocomplete) for the VS Code.",
-	"version": "1.0.2",
+	"version": "1.1.0",
 	"publisher": "svipas",
 	"icon": "icon.png",
 	"main": "./dist/main.js",
@@ -96,7 +96,7 @@
 		"vscode:prepublish": "yarn compile"
 	},
 	"devDependencies": {
-		"@types/node": "^14.0.13",
+		"@types/node": "^14.0.14",
 		"@types/vscode": "^1.30.0",
 		"ts-loader": "^7.0.5",
 		"typescript": "^3.9.5",

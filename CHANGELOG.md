@@ -1,5 +1,22 @@
 ## [Unreleased]
 
+## 1.1.0 (June 24, 2020)
+
+- Disable TabNine suggestions for VS Code JSON files like `settings.json`, `keybindings.json`, etc.
+- Dispose registered completion provider after extension is deactivated.
+- Register completion provider immediately instead of waiting for TabNine process to start.
+- Use `language` instead of `pattern` while registering completion provider.
+- Add `tabnine.enable` and `tabnine.requestTimeout` configs.
+- Check if language is disabled before registering completion provider.
+- Check if token has been cancelled before requesting for completions.
+- Handle token cancellation request while providing completions.
+- Remove uninstall hook.
+- Update `README`.
+- Automatically download latest TabNine binary on extension activation instead of bundling all binaries in extension.
+- Bundle extension with webpack.
+- Read config on startup instead of every time providing completions.
+- Refactor status bar item to show proper TabNine status.
+
 ## 1.0.2 (May 30, 2020)
 
 - Change icon of extension.
