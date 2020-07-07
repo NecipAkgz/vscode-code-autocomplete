@@ -2,7 +2,7 @@
 
 Unofficial [TabNine](https://www.tabnine.com) client (all-language autocomplete) for the VS Code.
 
-**Difference between [official TabNine extension](https://github.com/codota/tabnine-vscode)**
+**Difference between [official TabNine extension](https://github.com/codota/tabnine-vscode):**
 
 - Updated `README` to contain as much documentation as possible.
 - Added more VS Code settings, TabNine commands and triggers.
