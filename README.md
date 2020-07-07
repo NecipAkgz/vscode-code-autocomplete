@@ -2,19 +2,7 @@
 
 Unofficial [TabNine](https://www.tabnine.com) client (all-language autocomplete) for the VS Code.
 
-[TabNine](https://www.tabnine.com) features:
-
-- Uses deep learning to help you write code faster.
-- Works for all programming languages.
-- Doesn't require any configuration or external software in order to work.
-- Indexes your whole project, reading your `.gitignore`, `.hgignore`, `.ignore` and `.tabnineignore` files to determine which files to index.
-- Type long variable names in just a few keystrokes using the mnemonic completion engine.
-- Highly responsive, typically produces a list of suggestions in less than 10 milliseconds.
-
-&#x26a0; This is not official TabNine extension for VS Code. You can find official TabNine extension here: [tabnine-vscode](https://github.com/codota/tabnine-vscode). I created this extension to change some things to meet my needs.
-
-<details>
-<summary><strong>Difference between official TabNine extension</strong></summary>
+**Difference between [official TabNine extension](https://github.com/codota/tabnine-vscode)**
 
 - Updated `README` to contain as much documentation as possible.
 - Added more VS Code settings, TabNine commands and triggers.
@@ -29,10 +17,7 @@ Unofficial [TabNine](https://www.tabnine.com) client (all-language autocomplete)
 - Starts TabNine process on VS Code startup.
 - Automatically downloads latest TabNine binary on VS Code startup.
 - Bundled extension for faster startup.
-
-**For a full list of changes you can take a look at the [CHANGELOG](https://github.com/svipas/vscode-code-autocomplete/blob/master/CHANGELOG.md).**
-
-</details>
+- For a full list of changes you can take a look at the [CHANGELOG](https://github.com/svipas/vscode-code-autocomplete/blob/master/CHANGELOG.md).
 
 ## Installation
 
