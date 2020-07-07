@@ -1,6 +1,6 @@
 import * as child_process from "child_process";
 import * as vscode from "vscode";
-import { setTabNineStatus, TabNineStatus } from "./status-bar";
+import { setTabNineStatus, TabNineStatus } from "./statusBar";
 import { getTabNineVersionAndBinaryPath, logError } from "./utils";
 
 export interface TabNineAutocompleteResponse {

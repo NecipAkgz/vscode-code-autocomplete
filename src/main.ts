@@ -1,6 +1,6 @@
 import * as vscode from "vscode";
 import { getVSCodeConfig } from "./config";
-import { setTabNineStatus, statusBarItem, TabNineStatus } from "./status-bar";
+import { setTabNineStatus, statusBarItem, TabNineStatus } from "./statusBar";
 import {
 	sendRequestToTabNine,
 	startAndHookIntoTabNineProcess,
@@ -69,12 +69,12 @@ export async function activate(context: vscode.ExtensionContext) {
 				documentFilters,
 				{ provideCompletionItems },
 				...allTabNineCompletionTriggers
-			)
+			),
+			registerTabNineCommand("TabNine::config"),
+			registerTabNineCommand("TabNine::restart"),
+			registerTabNineCommand("TabNine::sem"),
+			registerTabNineCommand("TabNine::no_sem")
 		);
-		context.subscriptions.push(registerTabNineCommand("TabNine::config"));
-		context.subscriptions.push(registerTabNineCommand("TabNine::restart"));
-		context.subscriptions.push(registerTabNineCommand("TabNine::sem"));
-		context.subscriptions.push(registerTabNineCommand("TabNine::no_sem"));
 	} catch (err) {
 		setTabNineStatus(
 			TabNineStatus.ActivationError,

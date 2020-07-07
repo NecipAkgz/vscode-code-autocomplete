@@ -2,7 +2,7 @@ import * as fs from "fs";
 import * as https from "https";
 import * as path from "path";
 import * as vscode from "vscode";
-import { setTabNineStatus, TabNineStatus } from "./status-bar";
+import { setTabNineStatus, TabNineStatus } from "./statusBar";
 
 const fsp = fs.promises;
 const tabNineBinariesPath = path.join(__dirname, "..", "binaries");
