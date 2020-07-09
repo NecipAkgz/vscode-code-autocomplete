@@ -1,5 +1,11 @@
 ## [Unreleased]
 
+## 1.1.1 (July 9, 2020)
+
+- Update `README`.
+- Change project file names convention.
+- Update all dependencies.
+
 ## 1.1.0 (June 24, 2020)
 
 - Disable TabNine suggestions for VS Code JSON files like `settings.json`, `keybindings.json`, etc.
