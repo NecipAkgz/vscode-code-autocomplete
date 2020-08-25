@@ -1,5 +1,13 @@
 ## [Unreleased]
 
+## 1.2.0 (August 25)
+
+- Update all dependencies.
+- Remove all triggers except `.` and `:`.
+- Register additional completion provider which fires on word characters.
+- Add `tabnine.charLimit` config.
+- Update `README`.
+
 ## 1.1.1 (July 9, 2020)
 
 - Update `README`.
