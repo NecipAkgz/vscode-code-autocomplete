@@ -1,6 +1,6 @@
 ## [Unreleased]
 
-## 1.2.0 (August 25)
+## 1.2.0 (August 25, 2020)
 
 - Update all dependencies.
 - Remove all triggers except `.` and `:`.
