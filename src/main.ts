@@ -5,7 +5,7 @@ import {
 	sendRequestToTabNine,
 	startAndHookIntoTabNineProcess,
 } from "./tabnine";
-import { allTabNineCompletionTriggers } from "./Trigger";
+import { Trigger } from "./Trigger";
 import { downloadTabNineBinary, logError, showErrorMessage } from "./utils";
 
 const CHAR_LIMIT = 100_000;
@@ -65,10 +65,14 @@ export async function activate(context: vscode.ExtensionContext) {
 		});
 
 		context.subscriptions.push(
+			vscode.languages.registerCompletionItemProvider(documentFilters, {
+				provideCompletionItems,
+			}),
 			vscode.languages.registerCompletionItemProvider(
 				documentFilters,
 				{ provideCompletionItems },
-				...allTabNineCompletionTriggers
+				Trigger.DOT,
+				Trigger.COLON
 			),
 			registerTabNineCommand("TabNine::config"),
 			registerTabNineCommand("TabNine::restart"),
