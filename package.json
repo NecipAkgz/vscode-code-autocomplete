@@ -21,7 +21,8 @@
 	],
 	"categories": [
 		"Other",
-		"Programming Languages"
+		"Programming Languages",
+		"Machine Learning"
 	],
 	"activationEvents": [
 		"*"
