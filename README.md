@@ -148,6 +148,7 @@ Settings below are available in VS Code.
 - `tabnine.maxNumberOfResults`: maximum number of results returned by TabNine
 - `tabnine.disabledLanguagesIds`: list of languages IDs to disable
 - `tabnine.requestTimeout`: timeout in milliseconds after which TabNine request is terminated
+- `tabnine.charLimit`: maximum number of characters before and after your current position is sent to TabNine
 
 </details>
 

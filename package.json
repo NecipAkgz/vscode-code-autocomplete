@@ -85,6 +85,13 @@
 						"maximum": 1000,
 						"description": "Timeout in milliseconds after which TabNine request is terminated. Restart required.",
 						"scope": "window"
+					},
+					"tabnine.charLimit": {
+						"type": "number",
+						"default": 100000,
+						"minimum": 1,
+						"description": "Maximum number of characters before and after your current position is sent to TabNine. Restart required.",
+						"scope": "window"
 					}
 				}
 			}

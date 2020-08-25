@@ -8,7 +8,6 @@ import {
 import { Trigger } from "./Trigger";
 import { downloadTabNineBinary, logError, showErrorMessage } from "./utils";
 
-const CHAR_LIMIT = 100_000;
 const DEFAULT_DETAIL_MESSAGE = "TabNine";
 const TABNINE_VERSION_KEY = "TABNINE_VERSION";
 const vscodeConfig = getVSCodeConfig();
@@ -99,8 +98,8 @@ async function provideCompletionItems(
 		}
 
 		const offset = document.offsetAt(position);
-		const beforeStartOffset = Math.max(0, offset - CHAR_LIMIT);
-		const afterEndOffset = offset + CHAR_LIMIT;
+		const beforeStartOffset = Math.max(0, offset - vscodeConfig.charLimit);
+		const afterEndOffset = offset + vscodeConfig.charLimit;
 		const beforeStartPosition = document.positionAt(beforeStartOffset);
 		const afterEndPosition = document.positionAt(afterEndOffset);
 		const beforeStartPositionText = document.getText(
