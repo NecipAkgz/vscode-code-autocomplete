@@ -5,7 +5,9 @@ Unofficial [TabNine](https://www.tabnine.com) client (all-language autocomplete)
 **Difference between [official TabNine extension](https://github.com/codota/tabnine-vscode):**
 
 - Updated `README` to contain as much documentation as possible.
-- Added more VS Code settings, TabNine commands and triggers.
+- Added more VS Code settings and TabNine commands.
+- Kept only `.` and `:` trigger characters.
+- Shows TabNine suggestions while typing word characters.
 - Removed restriction to show only 1 result if end of the word is `.` or `::`.
 - Always shows correct suggestion detail for e.g. `41%` or `TabNine`.
 - Won't preselect TabNine suggestions.
@@ -13,7 +15,7 @@ Unofficial [TabNine](https://www.tabnine.com) client (all-language autocomplete)
 - Changed TabNine suggestions kind from `property` to `text` in order to avoid misunderstanding which suggestions are from TabNine.
 - Triggers suggestion list if suggestion ends with `.` or `::`.
 - Included postfix in suggestions for e.g. instead of `log(` it will show `log()`.
-- Disabled suggestions for VS Code JSON files like `settings.json`, etc.
+- Disabled suggestions in Git input (commit message), for VS Code JSON files like `settings.json`, etc.
 - Starts TabNine process on VS Code startup.
 - Automatically downloads latest TabNine binary on VS Code startup.
 - Bundled extension for faster startup.
