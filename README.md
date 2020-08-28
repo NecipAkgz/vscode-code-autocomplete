@@ -7,7 +7,6 @@ Unofficial [TabNine](https://www.tabnine.com) client (all-language autocomplete)
 - Updated `README` to contain as much documentation as possible.
 - Added more VS Code settings and TabNine commands.
 - Kept only `.` and `:` trigger characters.
-- Shows TabNine suggestions while typing word characters.
 - Removed restriction to show only 1 result if end of the word is `.` or `::`.
 - Always shows correct suggestion detail for e.g. `41%` or `TabNine`.
 - Won't preselect TabNine suggestions.
