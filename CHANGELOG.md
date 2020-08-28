@@ -1,5 +1,11 @@
 ## [Unreleased]
 
+## 1.2.1 (August 28, 2020)
+
+- Fix double suggestions bug by removing in previous version additionally added completion provider.
+- Better handling of cancellation requests.
+- Update `README`.
+
 ## 1.2.0 (August 25, 2020)
 
 - Update all dependencies.
