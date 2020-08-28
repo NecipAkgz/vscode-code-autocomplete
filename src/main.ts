@@ -64,9 +64,6 @@ export async function activate(context: vscode.ExtensionContext) {
 		});
 
 		context.subscriptions.push(
-			vscode.languages.registerCompletionItemProvider(documentFilters, {
-				provideCompletionItems,
-			}),
 			vscode.languages.registerCompletionItemProvider(
 				documentFilters,
 				{ provideCompletionItems },
@@ -90,10 +87,10 @@ export async function activate(context: vscode.ExtensionContext) {
 async function provideCompletionItems(
 	document: vscode.TextDocument,
 	position: vscode.Position,
-	token: vscode.CancellationToken
+	token?: vscode.CancellationToken
 ) {
 	try {
-		if (token.isCancellationRequested) {
+		if (token?.isCancellationRequested) {
 			return;
 		}
 
@@ -122,8 +119,12 @@ async function provideCompletionItems(
 				},
 			},
 			vscodeConfig.requestTimeout,
-			token.onCancellationRequested
+			token?.onCancellationRequested
 		);
+
+		if (token?.isCancellationRequested) {
+			return;
+		}
 
 		if (vscodeConfig.debug) {
 			console.log(responseFromTabNine);
